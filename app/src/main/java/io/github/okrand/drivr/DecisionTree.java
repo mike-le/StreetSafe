@@ -4,7 +4,21 @@ import java.util.List;
 
 public class DecisionTree {
 
-    public String generateReport(List<Integer> input) {
+    private DecisionTree decisionTree = DecisionTree.getInstance();
+
+    private static DecisionTree instance =
+            new DecisionTree();
+
+    private DecisionTree() {}
+
+    /**
+     * @return Command Manager object.
+     */
+    public static DecisionTree getInstance() {
+        return instance;
+    }
+
+    public String generateClaim(List<Integer> input) {
         int dec1 = input.get(0);
         int dec2 = input.get(1);
 
