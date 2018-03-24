@@ -21,10 +21,16 @@ public class CommandManager {
         return instance;
     }
 
+    /**
+     * @param input from frontend space in form of ("License Number" "State" "dec1" "dec2")
+     */
     public void processInput(String input) {
-        String[] tokens = input.split(" ");
-        List<String> values = new ArrayList<>(Arrays.asList(tokens));
-        // TODO: Finish mehtod
+        String[] tokens = input.split("[ ]+(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+        String state = tokens[0];
+        String license = tokens[1];
+        String numClaim = tokens[2] + tokens[3];
+        Report report = generateReport(state, license, numClaim);
+        storeReport(report);
     }
 
     /**
