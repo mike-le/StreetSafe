@@ -7,3 +7,9 @@
 /build
 /captures
 .externalNativeBuild
+
+##################
+# Android Studio #
+##################
+# Idea files
+.idea/
