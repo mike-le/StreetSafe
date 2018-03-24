@@ -1,5 +1,6 @@
 package io.github.okrand.drivr;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Populate List
         List<Report> theList = new ArrayList<>();
 
         ListView myRepsListView = findViewById(R.id.list_my_reports);
@@ -21,5 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
         };
         myRepsListView.setAdapter(adapter);
+
+        //On Click go to New Report.java
+        Intent intent = new Intent(this, NewReport.class);
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 }
