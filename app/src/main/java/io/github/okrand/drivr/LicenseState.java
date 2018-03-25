@@ -73,7 +73,7 @@ public class LicenseState extends AppCompatActivity{
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     EditText txtSpeechInput = (EditText) findViewById(R.id.edit_state);
-                    String res = result.get(0).replaceAll("\\s+","");
+                    String res = result.get(0);
                     txtSpeechInput.setText(res);
 
                     //Get Report

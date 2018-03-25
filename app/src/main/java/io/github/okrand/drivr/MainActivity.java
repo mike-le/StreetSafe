@@ -8,7 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private final int CODE_SAFETREK = 10;
     private final int CODE_NEW_REPORT = 0;
     private DatabaseReference mDatabase;
+    private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static int numberOfClaims;
 
     @Override
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Report r = new Report();
+                Date date = new Date();
+                r.setTime(sdf.format(date));
                 Intent intent = new Intent(MainActivity.this, NewReportType.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("report", r);
