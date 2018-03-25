@@ -13,7 +13,7 @@
         android:layout_weight="0.5"
         android:textSize="20sp"
         android:text="My Driving"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginStart="10dp"/>
 
     <ListView
         android:id="@+id/list_my_reports"
