@@ -50,7 +50,7 @@ public class LicensePlate extends AppCompatActivity{
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
             Toast.makeText(getApplicationContext(),
-                    "Don't Speak, I know what you're feeling",
+                    "Don't Speak, I know what you're thinking",
                     Toast.LENGTH_SHORT).show();
         }
     }
