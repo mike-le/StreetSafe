@@ -1,9 +1,16 @@
 package io.github.okrand.drivr;
 
-import java.util.Arrays;
+import android.net.Uri;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import android.content.Intent;
 
 public class CommandManager {
 
@@ -56,6 +63,84 @@ public class CommandManager {
      */
     public void storeReport(Report report) {}
 
+    /**
+     * @param coords [lat, long]
+     * @param services true or false [police, fire, medical]
+     */
+    public String contactServices(Double[] coords, String[] services) {
+        double lat = coords[0];
+        double lon = coords[1];
+        String police = services[0];
+        String fire = services[1];
+        String medical = services[2];
+        String token = authenticate();
+        String input = "Authorization: Bearer + " + token + "{"
+                + "\"services\": {"
+                    + "\"police\":" + police + ","
+                    + "\"fire\":" + fire + ","
+                    + "\"medical\":" + medical + "},"
+                + "\"location.coordinates\": {"
+                    + "\"lat\":" + lat + ","
+                    + "\"lng\":" + lon + ","
+                    + "\"accuracy\": 50" + "}";
 
 
+        try {
+            String postUrl = "https://api-sandbox.safetrek.io/v1";// put in your url
+            URL url = new URL(postUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(false);
+            conn.setDoInput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestMethod("POST");
+
+            OutputStream os = conn.getOutputStream();
+            os.write(input.getBytes());
+            os.flush();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    (conn.getInputStream())));
+
+            String output;
+            System.out.println("Output from Server .... \n");
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+            }
+
+            System.out.print(conn.getResponseCode());
+
+            conn.disconnect();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String authenticate() {
+        //Uri uri = getIntent().getData();
+
+        String input = "{"
+                + "\"grant_type\": " + "authorization_code" + ","
+                + "\"code\":" + "authorization_code" + ","
+                + "\"client_id\": m5qXF5ztOdT4cdQtUbZT2grBhF187vw6 ,"
+                + "\"client_secret\": 3DLoc7yAVfRYALPgby6fz5kNwgniKoHrJOi2BMDtQzFRIE1YyRvmKjb7_NyupHHE ,"
+                + "\"redirect_uri\": drivr://callback + }";
+
+        try {
+            String postUrl = "https://api-sandbox.safetrek.io/v1";// put in your url
+            URL url = new URL(postUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(false);
+            conn.setDoInput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestMethod("POST");
+
+            OutputStream os = conn.getOutputStream();
+            os.write(input.getBytes());
+            os.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

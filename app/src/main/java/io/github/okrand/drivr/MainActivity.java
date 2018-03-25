@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mDatabase2.child("3").child("License Plate").setValue("ASD789");
         mDatabase2.child("3").child("State").setValue("Texas");
         mDatabase2.child("3").child("Issue").setValue("Tire");
+        */
 
         Query lastQuery = mDatabase2.orderByKey().limitToLast(1);
         lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -98,9 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 //Handle possible errors.
             }
         });
-        */
-=======
->>>>>>> 44afb95e0b1eeff012027c72b57bf20d29195616
     }
 }
 
