@@ -1,15 +1,18 @@
 package io.github.okrand.drivr;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getReports(final String licenseID, final String state)
     {
-        final ArrayList<Report> reports = new ArrayList();
+        final List<Report> reports = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
 
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -153,13 +157,31 @@ public class MainActivity extends AppCompatActivity {
                 }
                 System.out.println("SIZE: " + reports.size());
                 final ListView myRepsListView = findViewById(R.id.list_my_reports);
-                ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.list_my_reports, reports){};
+                ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.item_claim, reports){
+                    @Override
+                    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
+                        final View view = super.getView(position, convertView, parent);
+                        TextView itemClaim = view.findViewById(R.id.item_claim);
+                        TextView itemOption = view.findViewById(R.id.item_option);
+                        TextView itemDate = view.findViewById(R.id.item_date);
+                        TextView itemTime = view.findViewById(R.id.item_time);
+                        itemClaim.setText(reports.get(position).getClaim());
+                        itemOption.setText(reports.get(position).getOption());
+                        String t = reports.get(position).getTime();
+                        try {
+                            Date d = sdf.parse(t);
+                            DateFormat daymonth = new SimpleDateFormat("MMM, d");
+                            DateFormat hourMinute = new SimpleDateFormat("hh:mm aa");
+                            itemDate.setText(daymonth.format(d));
+                            itemTime.setText(hourMinute.format(d));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        return view;
+                    }
+                };
                 myRepsListView.setAdapter(adapter);
 
-                for(int j = 0; j < reports.size(); j++)
-                {
-                    adapter.add(reports.get(j));
-                }
 
 
 
@@ -175,22 +197,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-//    //Populate List
-//    List<Report> theList = new ArrayList<>();
-//
-//    ListView myRepsListView = findViewById(R.id.list_my_reports);
-//    ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.list_my_reports, theList){
-//
-//    };
-//        myRepsListView.setAdapter(adapter);
-//
-
-
-
-//                //On Click go to New Report.java
-//                Intent intent = new Intent(this, NewReport.class);
-//        //intent.putExtra(EXTRA_MESSAGE, message);
-//        startActivity(intent);
-//        }
-
