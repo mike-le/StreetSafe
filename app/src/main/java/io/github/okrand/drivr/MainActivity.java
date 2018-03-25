@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 <<<<<<< HEAD
+        //DatabaseTest();
+    }
+
+    void DatabaseTest(){
         String licenseID = "P85AXJ";
         String state = "New Jersey";
         String issue = "lights";
@@ -99,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
                 //Handle possible errors.
             }
         });
+<<<<<<< HEAD
+=======
+        */
+>>>>>>> 0e1d1b2eb212ae2f2cf9ee3d6ae0a39f766ce966
     }
 }
 
