@@ -1,7 +1,13 @@
 package io.github.okrand.drivr;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +23,7 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 private final int CODE_SAFETREK = 10;
     private DatabaseReference mDatabase;
-    private DatabaseReference mDatabase2;
+    private static int numberOfClaims;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,9 @@ private final int CODE_SAFETREK = 10;
         setContentView(R.layout.activity_main);
         authenticate();
         //String access_token = getIntent().getData().getQueryParameter("access_token");
+        //Example upload
+        Report newReport = new Report("new state", "new license", "new claim");
+        uploadReport(newReport);
         //DatabaseTest();
     }
 
@@ -78,49 +87,35 @@ private final int CODE_SAFETREK = 10;
                 System.out.println(dataSnapshot);
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Handle possible errors.
-            }
-        });
+        //Populate List
+        List<Report> theList = new ArrayList<>();
 
-        /*
-        mDatabase = FirebaseDatabase.getInstance().getReference("Reports");
+        ListView myRepsListView = findViewById(R.id.list_my_reports);
+        ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.list_my_reports, theList){
 
-        String licenseID = "P85AXJ";
-        String state = "New Jersey";
-        String issue = "lights";
+        };
+        myRepsListView.setAdapter(adapter);
 
-        //mDatabase.child(licenseID).setValue(state);
-        mDatabase.child("1").child("Claim Number").setValue(1);
-        mDatabase.child("1").child("License Plate").setValue(licenseID);
-        mDatabase.child("1").child("State").setValue(state);
-        mDatabase.child("1").child("Issue").setValue(issue);
+        //On Click go to New Report.java
+        Intent intent = new Intent(this, NewReport.class);
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
 
-        mDatabase.child("2").child("Claim Number").setValue(2);
-        mDatabase.child("2").child("License Plate").setValue("LKM456");
-        mDatabase.child("2").child("State").setValue("Virginia");
-        mDatabase.child("2").child("Issue").setValue("Swerve");
+    //If User calls app and successfully provides information to upload, use this function
+    public void uploadReport(final Report newReport)
+    {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Query numberOfChilds = mDatabase.child("Reports").orderByKey();
+        numberOfChilds.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        mDatabase.child("3").child("Claim Number").setValue(3);
-        mDatabase.child("3").child("License Plate").setValue("ASD789");
-        mDatabase.child("3").child("State").setValue("Texas");
-        mDatabase.child("3").child("Issue").setValue("Tire");
-
-        DatabaseReference lastNode = FirebaseDatabase.getInstance().getReference();
-        Query lastQuery = lastNode.child("Reports").orderByKey().limitToLast(1);
-        System.out.println("lastQuery = " + mDatabase.limitToLast(1).getRef().child("Claim Number"));
-        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("previousClaimID = " + dataSnapshot);
-                System.out.println("previousClaimID = " + dataSnapshot.getValue());
-                System.out.println("newClaimID = " + dataSnapshot.child("Claim Number"));
+                System.out.println(dataSnapshot.getChildrenCount());
+                numberOfClaims = (int) dataSnapshot.getChildrenCount() + 1;
+                //Prompt the User License and store into report
 
-                Integer newClaimID = (int) dataSnapshot.child("Claim Number").getValue();
-                mDatabase.child(Integer.toString(newClaimID + 1)).child("License Plate").setValue("MLK123");
-                mDatabase.child(Integer.toString(newClaimID + 1)).child("State").setValue("New York");
-                mDatabase.child(Integer.toString(newClaimID + 1)).child("Issue").setValue("Brakes");
+                mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
             }
 
             @Override
