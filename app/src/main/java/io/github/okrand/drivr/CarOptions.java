@@ -16,6 +16,7 @@ public class CarOptions extends AppCompatActivity {
 
         Button tire = (Button) findViewById(R.id.tire);
         Button lights = (Button) findViewById(R.id.lights);
+        Button smoke = (Button) findViewById(R.id.smoke);
 
         Bundle bundle = getIntent().getExtras();
         final Report r = bundle.getParcelable("report");
@@ -35,6 +36,17 @@ public class CarOptions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 r.setOption("Lights");
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("report", r);
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
+            }
+        });
+
+        smoke.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r.setOption("Smoke");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("report", r);
                 setResult(Activity.RESULT_OK, resultIntent);

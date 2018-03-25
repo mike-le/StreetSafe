@@ -8,27 +8,36 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:textSize="20sp"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:textSize="30dp"
         android:text="My Driving"
+        android:textAlignment="center"
         android:layout_marginStart="10dp"/>
 
     <ListView
         android:id="@+id/list_my_reports"
         android:layout_width="match_parent"
-        android:layout_weight="7"
+        android:layout_weight="6"
         android:layout_margin="5dp"
         android:layout_height="0dp" />
 
+
     <Button
         android:id="@+id/button_new_report"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
         android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:text="New Report"/>
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="New Report"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="#26a69a"  />
+
 
 </LinearLayout>
