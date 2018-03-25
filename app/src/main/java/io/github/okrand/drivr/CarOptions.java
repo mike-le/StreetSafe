@@ -16,6 +16,7 @@ public class CarOptions extends AppCompatActivity {
 
         Button tire = (Button) findViewById(R.id.tire);
         Button lights = (Button) findViewById(R.id.lights);
+        Button smoke = (Button) findViewById(R.id.smoke);
 
         Bundle bundle = getIntent().getExtras();
         final Report r = bundle.getParcelable("report");

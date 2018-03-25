@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private final int CODE_NEW_REPORT = 0;
     private DatabaseReference mDatabase;
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private ArrayList<Report> reports;
     private static int numberOfClaims;
 
     @Override
@@ -103,14 +102,11 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println(dataSnapshot.getChildrenCount());
                 numberOfClaims = (int) dataSnapshot.getChildrenCount() + 1;
-                //Prompt the User License and store into report
-
                 mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                //Handle possible errors.
             }
         });
     }
@@ -139,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
                     if (checkLicense.equalsIgnoreCase(licenseID) && checkState.equalsIgnoreCase(state)) {
                         String claim = dataSnapshot.child(String.valueOf(i)).child("claim").getValue().toString();
                         String time = dataSnapshot.child(String.valueOf(i)).child("time").getValue().toString();
-                        Report newReport = new Report(checkState, checkLicense, claim, time);
+                        String option = dataSnapshot.child(String.valueOf(i)).child("option").getValue().toString();
+                        Report newReport = new Report(checkState, checkLicense, claim, option, time);
                         reports.add(newReport);
                     }
                 }
