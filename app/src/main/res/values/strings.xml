@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Drivr</string>
+    <string name="new_report">New Report</string>
+
 </resources>

@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         String licenseID = "P85AXJ";
         String state = "New Jersey";
         String issue = "lights";
@@ -98,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         */
+=======
+>>>>>>> 44afb95e0b1eeff012027c72b57bf20d29195616
     }
 }
 
