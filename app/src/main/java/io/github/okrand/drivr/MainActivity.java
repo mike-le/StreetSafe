@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private final int CODE_SAFETREK = 10;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, CODE_NEW_REPORT);
             }
         });
+
+        getReports("P84XJ", "New Jersey");
 
         //String access_token = getIntent().getData().getQueryParameter("access_token");
 
@@ -95,8 +99,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println(dataSnapshot.getChildrenCount());
-                numberOfClaims = (int) dataSnapshot.getChildrenCount() + 1;
-                mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
+                if(dataSnapshot.getChildrenCount() == 0)
+                {
+                    mDatabase.child("Reports").child("1").setValue(newReport);
+                }
+                else
+                {
+                    numberOfClaims = (int) dataSnapshot.getChildrenCount() + 1;
+                    mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
+                }
             }
 
             @Override
@@ -134,7 +145,21 @@ public class MainActivity extends AppCompatActivity {
                         reports.add(newReport);
                     }
                 }
-                //Put code here
+                System.out.println("SIZE: " + reports.size());
+                final ListView myRepsListView = findViewById(R.id.list_my_reports);
+                ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.list_my_reports, reports){};
+                myRepsListView.setAdapter(adapter);
+
+                for(int j = 0; j < reports.size(); j++)
+                {
+                    adapter.add(reports.get(j));
+                }
+
+
+
+
+
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -154,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
 //    };
 //        myRepsListView.setAdapter(adapter);
 //
+
+
+
 //                //On Click go to New Report.java
 //                Intent intent = new Intent(this, NewReport.class);
 //        //intent.putExtra(EXTRA_MESSAGE, message);
