@@ -31,11 +31,11 @@ private final int CODE_SAFETREK = 10;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         authenticate();
+
         //String access_token = getIntent().getData().getQueryParameter("access_token");
         //Example upload
         Report newReport = new Report("new state", "new license", "new claim");
         uploadReport(newReport);
-        //DatabaseTest();
     }
 
     void authenticate() {
@@ -59,49 +59,6 @@ private final int CODE_SAFETREK = 10;
         }
     }
 
-    void DatabaseTest(){
-        String licenseID = "P85AXJ";
-        String state = "New Jersey";
-        String issue = "lights";
-
-        mDatabase2 = FirebaseDatabase.getInstance().getReference();
-        mDatabase2.child("1").child("Claim Number").setValue(1);
-        mDatabase2.child("1").child("License Plate").setValue(licenseID);
-        mDatabase2.child("1").child("State").setValue(state);
-        mDatabase2.child("1").child("Issue").setValue(issue);
-
-        mDatabase2.child("2").child("Claim Number").setValue(2);
-        mDatabase2.child("2").child("License Plate").setValue("LKM456");
-        mDatabase2.child("2").child("State").setValue("Virginia");
-        mDatabase2.child("2").child("Issue").setValue("Swerve");
-
-        mDatabase2.child("3").child("Claim Number").setValue(3);
-        mDatabase2.child("3").child("License Plate").setValue("ASD789");
-        mDatabase2.child("3").child("State").setValue("Texas");
-        mDatabase2.child("3").child("Issue").setValue("Tire");
-
-        Query lastQuery = mDatabase2.orderByKey().limitToLast(1);
-        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot);
-            }
-
-        //Populate List
-        List<Report> theList = new ArrayList<>();
-
-        ListView myRepsListView = findViewById(R.id.list_my_reports);
-        ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.list_my_reports, theList){
-
-        };
-        myRepsListView.setAdapter(adapter);
-
-        //On Click go to New Report.java
-        Intent intent = new Intent(this, NewReport.class);
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
-
     //If User calls app and successfully provides information to upload, use this function
     public void uploadReport(final Report newReport)
     {
@@ -123,9 +80,6 @@ private final int CODE_SAFETREK = 10;
                 //Handle possible errors.
             }
         });
-<<<<<<< HEAD
-=======
-        */
     }
 
     @Override
@@ -134,4 +88,18 @@ private final int CODE_SAFETREK = 10;
     }
 }
 
+//    //Populate List
+//    List<Report> theList = new ArrayList<>();
+//
+//    ListView myRepsListView = findViewById(R.id.list_my_reports);
+//    ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.list_my_reports, theList){
+//
+//    };
+//        myRepsListView.setAdapter(adapter);
+//
+//                //On Click go to New Report.java
+//                Intent intent = new Intent(this, NewReport.class);
+//        //intent.putExtra(EXTRA_MESSAGE, message);
+//        startActivity(intent);
+//        }
 
