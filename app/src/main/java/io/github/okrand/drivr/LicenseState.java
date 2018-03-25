@@ -77,8 +77,8 @@ public class LicenseState extends AppCompatActivity{
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            Intent intent = new Intent(LicenseState.this, ReportOptions.class);
-//                            startActivity(intent);
+                            Intent intent = new Intent(LicenseState.this, DriverOptions.class);
+                            startActivity(intent);
                         }
                     }, TIME_OUT);
                 }

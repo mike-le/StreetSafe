@@ -3,7 +3,9 @@ package io.github.okrand.drivr;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -30,12 +32,24 @@ private final int CODE_SAFETREK = 10;
         Log.d("MainActivity", "Here");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        authenticate();
+        //authenticate();
+        final Button newReport = findViewById(R.id.button_new_report);
+        newReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Report r = new Report();
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("report", r);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 0);
+            }
+        });
 
         //String access_token = getIntent().getData().getQueryParameter("access_token");
         //Example upload
-        Report newReport = new Report("new state", "new license", "new claim");
-        uploadReport(newReport);
+        //Report newReport = new Report("new state", "new license", "new claim");
+        //uploadReport(newReport);
     }
 
     void authenticate() {
