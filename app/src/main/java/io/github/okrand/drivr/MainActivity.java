@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static int numberOfClaims;
-    private final String lPlate = "M62AYJ";
-    private final String lState = "New Jersey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getReports("M62AYJ", "New Jersey");
-        getReports(lPlate, lState);
     }
 
     void authenticate() {
@@ -103,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getChildrenCount());
                 if(dataSnapshot.getChildrenCount() == 0)
                 {
                     mDatabase.child("Reports").child("1").setValue(newReport);
@@ -114,20 +110,12 @@ public class MainActivity extends AppCompatActivity {
                     mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
                 }
                 Toast.makeText(MainActivity.this, "Report saved", Toast.LENGTH_SHORT).show();
-                getReports("M62AYJ", "New Jersey");
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getReports(lPlate,lState);
     }
 
     @Override
@@ -158,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
                         reports.add(newReport);
                     }
                 }
-                System.out.println("SIZE: " + reports.size());
                 final ListView myRepsListView = findViewById(R.id.list_my_reports);
                 ArrayAdapter adapter = new ArrayAdapter<Report>(MainActivity.this, R.layout.list_item_record, R.id.item_claim, reports){
                     @Override
@@ -187,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
