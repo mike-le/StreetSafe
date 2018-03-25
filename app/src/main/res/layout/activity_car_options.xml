@@ -16,7 +16,8 @@
         android:textSize="30dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:backgroundTint="#fbc02d">
+        android:backgroundTint="#fbc02d"
+        />
 
     <Button
         android:id="@+id/tire"
@@ -30,6 +31,6 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:backgroundTint="#9e9e9e"
-        />>
+        />
 
 </LinearLayout>
