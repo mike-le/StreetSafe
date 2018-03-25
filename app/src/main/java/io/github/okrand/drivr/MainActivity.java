@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null != data){
                  Report r = data.getParcelableExtra("report");
                  uploadReport(r);
-                 Log.d("NEW REPORT", r.getLicense() + " ---- " + r.getState() + " ---- " + r.getClaim() + " ---- " + r.getOption());
+                 Log.d("NEW REPORT", r.getLicense() + " ---- " + r.getState() + " ---- " + r.getClaim() + ": " + r.getOption());
                 }
                 break;
             }
