@@ -18,18 +18,18 @@ import java.util.Locale;
  * Created by Krando67 on 3/24/18.
  */
 
-public class LicensePlate extends AppCompatActivity{
+public class LicenseState extends AppCompatActivity{
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private final int CODE_STATE_RETURN = 200;
-    private static int TIME_OUT = 2000;
+    private static int TIME_OUT = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plate);
+        setContentView(R.layout.activity_state);
 
-        EditText txtLicensePlate = (EditText) findViewById(R.id.edit_plate);
+        EditText txtLicensePlate = (EditText) findViewById(R.id.edit_state);
         txtLicensePlate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +37,6 @@ public class LicensePlate extends AppCompatActivity{
             }
         });
     }
-
     /**
      * Showing google speech input dialog
      * */
@@ -71,21 +70,21 @@ public class LicensePlate extends AppCompatActivity{
 
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    EditText txtSpeechInput = (EditText) findViewById(R.id.edit_plate);
+                    EditText txtSpeechInput = (EditText) findViewById(R.id.edit_state);
                     String res = result.get(0).replaceAll("\\s+","");
                     txtSpeechInput.setText(res);
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(LicensePlate.this, LicenseState.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(LicenseState.this, ReportOptions.class);
+//                            startActivity(intent);
                         }
                     }, TIME_OUT);
                 }
                 break;
             }
-            case CODE_STATE_RETURN: { //Return from state
+            case CODE_STATE_RETURN: { //Return from options
                 if (resultCode == RESULT_OK && null != data) {
 
                 }

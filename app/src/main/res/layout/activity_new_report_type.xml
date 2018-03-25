@@ -50,5 +50,4 @@
         android:backgroundTint="@android:color/holo_green_dark"
         />
 
-</LinearLayout
-    >
+</LinearLayout>

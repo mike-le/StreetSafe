@@ -8,12 +8,12 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:text="LICENSE PLATE"
+        android:text="STATE"
         android:textSize="30sp"
         />
 
     <EditText
-        android:id="@+id/edit_plate"
+        android:id="@+id/edit_state"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
@@ -21,5 +21,5 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:clickable="true"/>
-    
+
 </RelativeLayout>

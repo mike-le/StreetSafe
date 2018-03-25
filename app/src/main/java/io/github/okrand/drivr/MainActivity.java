@@ -127,6 +127,11 @@ private final int CODE_SAFETREK = 10;
 =======
         */
     }
+
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
+    }
 }
 
 
