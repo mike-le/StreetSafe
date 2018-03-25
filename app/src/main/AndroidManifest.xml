@@ -36,6 +36,9 @@
         <activity android:name=".NewReport">
 
         </activity>
+        <activity android:name=".Emergency">
+
+        </activity>
         <activity android:name=".LicensePlate">
 
         </activity>

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Here");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //authenticate();
+        authenticate();
 
         final Button newReport = findViewById(R.id.button_new_report);
         newReport.setOnClickListener(new View.OnClickListener() {
