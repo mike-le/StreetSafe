@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
+    android:gravity="center">
 
     <Button
-        android:id="@+id/emergency"
+        android:id="@+id/police"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="Emergency"
+        android:text="Police"
         android:textSize="30dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:drawableLeft="@drawable/ic_error_white_24dp"
-        android:backgroundTint="@android:color/holo_red_dark"/>
+        android:drawableLeft="@drawable/ic_local_taxi_white_24dp"
+        android:backgroundTint="@android:color/holo_blue_dark"/>
 
     <Button
-        android:id="@+id/bad_driver"
+        android:id="@+id/fire"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="Bad Driver"
+        android:text="Fire"
         android:textSize="30dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:drawableLeft="@drawable/ic_person_white_24dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:drawableLeft="@drawable/ic_whatshot_white_24dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
         />
 
     <Button
-        android:id="@+id/bad_car"
+        android:id="@+id/ems"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:text="Bad Car"
+        android:text="EMS"
         android:textSize="30dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:drawableLeft="@drawable/ic_directions_car_white_24dp"
-        android:backgroundTint="@android:color/holo_green_dark"
+        android:drawableLeft="@drawable/ic_add_box_white_24dp"
+        android:backgroundTint="@android:color/holo_red_dark"
         />
 
-</LinearLayout
-    >
+
+</LinearLayout>

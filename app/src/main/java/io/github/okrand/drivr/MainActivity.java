@@ -26,9 +26,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         //Example upload
         Report newReport = new Report("new state", "new license", "new claim");
         uploadReport(newReport);
+=======
+        //DatabaseTest();
+    }
+
+    void DatabaseTest(){
+        String licenseID = "P85AXJ";
+        String state = "New Jersey";
+        String issue = "lights";
+
+        mDatabase2 = FirebaseDatabase.getInstance().getReference();
+        mDatabase2.child("1").child("Claim Number").setValue(1);
+        mDatabase2.child("1").child("License Plate").setValue(licenseID);
+        mDatabase2.child("1").child("State").setValue(state);
+        mDatabase2.child("1").child("Issue").setValue(issue);
+
+        mDatabase2.child("2").child("Claim Number").setValue(2);
+        mDatabase2.child("2").child("License Plate").setValue("LKM456");
+        mDatabase2.child("2").child("State").setValue("Virginia");
+        mDatabase2.child("2").child("Issue").setValue("Swerve");
+
+        mDatabase2.child("3").child("Claim Number").setValue(3);
+        mDatabase2.child("3").child("License Plate").setValue("ASD789");
+        mDatabase2.child("3").child("State").setValue("Texas");
+        mDatabase2.child("3").child("Issue").setValue("Tire");
+
+        Query lastQuery = mDatabase2.orderByKey().limitToLast(1);
+        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot);
+            }
+>>>>>>> 63362fab6da853048f09955c63be95ea9bdeaa5d
 
         //Populate List
         List<Report> theList = new ArrayList<>();
@@ -66,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 //Handle possible errors.
             }
         });
+<<<<<<< HEAD
+=======
+        */
+>>>>>>> 63362fab6da853048f09955c63be95ea9bdeaa5d
     }
 }
 
