@@ -67,13 +67,13 @@ public class CommandManager {
      * @param coords [lat, long]
      * @param services true or false [police, fire, medical]
      */
-    public String contactServices(Double[] coords, String[] services) {
+    public String contactServices(Double[] coords, String[] services, String token) {
         double lat = coords[0];
         double lon = coords[1];
         String police = services[0];
         String fire = services[1];
         String medical = services[2];
-        String token = authenticate();
+        // authenticate();
         String input = "Authorization: Bearer + " + token + "{"
                 + "\"services\": {"
                     + "\"police\":" + police + ","
@@ -117,7 +117,7 @@ public class CommandManager {
         return "";
     }
 
-    public String authenticate() {
+    public void authenticate() {
         //Uri uri = getIntent().getData();
 
         String input = "{"

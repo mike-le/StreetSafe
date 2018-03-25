@@ -10,18 +10,44 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 
+public class MainActivity extends AppCompatActivity {
+private final int CODE_SAFETREK = 10;
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabase2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("MainActivity", "Here");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-<<<<<<< HEAD
+        authenticate();
+        //String access_token = getIntent().getData().getQueryParameter("access_token");
         //DatabaseTest();
+    }
+
+    void authenticate() {
+        String client_id = "m5qXF5ztOdT4cdQtUbZT2grBhF187vw6";
+        String redirectUri = "https://drivr-report.herokuapp.com/callback";
+        String url = "https://account-sandbox.safetrek.io/authorize" + "?client_id=" + client_id + "&scope=openid%20phone%20offline_access&response_type=code&redirect_uri=" + redirectUri;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        System.out.println(url);
+        startActivityForResult(intent, CODE_SAFETREK);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case CODE_SAFETREK: {
+                String token = data.getData().getQueryParameter("access_token");
+                System.out.print(token);
+                break;
+            }
+        }
     }
 
     void DatabaseTest(){
@@ -44,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         mDatabase2.child("3").child("License Plate").setValue("ASD789");
         mDatabase2.child("3").child("State").setValue("Texas");
         mDatabase2.child("3").child("Issue").setValue("Tire");
-        */
 
         Query lastQuery = mDatabase2.orderByKey().limitToLast(1);
         lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 <<<<<<< HEAD
 =======
         */
->>>>>>> 0e1d1b2eb212ae2f2cf9ee3d6ae0a39f766ce966
     }
 }
 
