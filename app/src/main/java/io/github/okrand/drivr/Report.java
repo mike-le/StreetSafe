@@ -20,6 +20,13 @@ public class Report {
         time = sdf.format(date);
     }
 
+    public Report(String state, String license, String claim, String time) {
+        this.state = state;
+        this.license = license;
+        this.claim = claim;
+        this.time = time;
+    }
+
     public String getLicense() {
         return license;
     }
