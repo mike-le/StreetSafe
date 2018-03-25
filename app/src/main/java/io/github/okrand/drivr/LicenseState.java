@@ -1,6 +1,7 @@
 package io.github.okrand.drivr;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Created by Krando67 on 3/24/18.
@@ -21,21 +23,27 @@ import java.util.Locale;
 public class LicenseState extends AppCompatActivity{
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
-    private final int CODE_STATE_RETURN = 200;
-    private static int TIME_OUT = 4000;
+    private final int CODE_OPTIONS_RETURN = 200;
+    private static int TIME_OUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_state);
 
-        EditText txtLicensePlate = (EditText) findViewById(R.id.edit_state);
-        txtLicensePlate.setOnClickListener(new View.OnClickListener() {
+        final EditText txtLicenseState = (EditText) findViewById(R.id.edit_state);
+        txtLicenseState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
             }
         });
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                txtLicenseState.performClick();}
+        }, TIME_OUT);
     }
     /**
      * Showing google speech input dialog
@@ -71,22 +79,41 @@ public class LicenseState extends AppCompatActivity{
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     EditText txtSpeechInput = (EditText) findViewById(R.id.edit_state);
-                    String res = result.get(0).replaceAll("\\s+","");
+                    String res = result.get(0);
                     txtSpeechInput.setText(res);
+
+                    //Get Report
+                    Bundle bundle = getIntent().getExtras();
+                    final Report r = bundle.getParcelable("report");
+                    r.setState(res); //set license plate of report
+
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(LicenseState.this, DriverOptions.class);
-                            startActivity(intent);
+                            if (Objects.equals(r.getClaim(), "" + getResources().getString(R.string.bad_driver))) {
+                                Intent intent = new Intent(LicenseState.this, DriverOptions.class);
+                                intent.putExtra("report", r);
+                                startActivityForResult(intent, CODE_OPTIONS_RETURN);
+                            }
+                            else if (Objects.equals(r.getClaim(), "" + getResources().getString(R.string.bad_car))) {
+                                Intent intent = new Intent(LicenseState.this, CarOptions.class);
+                                intent.putExtra("report", r);
+                                startActivityForResult(intent, CODE_OPTIONS_RETURN);
+                            }
                         }
                     }, TIME_OUT);
                 }
                 break;
             }
-            case CODE_STATE_RETURN: { //Return from options
-                if (resultCode == RESULT_OK && null != data) {
 
+            case CODE_OPTIONS_RETURN: { //Return from options
+                if (resultCode == RESULT_OK && null != data) {
+                    Report r = data.getParcelableExtra("report");
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("report", r);
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
                 }
                 break;
             }

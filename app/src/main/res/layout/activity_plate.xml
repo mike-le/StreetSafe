@@ -10,6 +10,9 @@
         android:layout_marginTop="10dp"
         android:text="LICENSE PLATE"
         android:textSize="30sp"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:clickable="true"
         />
 
     <EditText
@@ -18,8 +21,6 @@
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:textSize="50sp"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="true"/>
+        android:gravity="center"/>
     
 </RelativeLayout>

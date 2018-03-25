@@ -33,4 +33,18 @@
         android:backgroundTint="#9e9e9e"
         />
 
+    <Button
+        android:id="@+id/smoke"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Smoke"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@android:color/black"
+        />
+
 </LinearLayout>

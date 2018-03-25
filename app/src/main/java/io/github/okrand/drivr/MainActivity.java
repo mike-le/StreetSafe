@@ -8,7 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,9 +26,10 @@ import android.net.Uri;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
-private final int CODE_SAFETREK = 10;
+    private final int CODE_SAFETREK = 10;
     private final int CODE_NEW_REPORT = 0;
     private DatabaseReference mDatabase;
+    private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static int numberOfClaims;
 
     @Override
@@ -34,12 +38,15 @@ private final int CODE_SAFETREK = 10;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //authenticate();
+
         final Button newReport = findViewById(R.id.button_new_report);
         newReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Report r = new Report();
-                Intent intent = new Intent();
+                Date date = new Date();
+                r.setTime(sdf.format(date));
+                Intent intent = new Intent(MainActivity.this, NewReportType.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("report", r);
                 intent.putExtras(bundle);
@@ -48,7 +55,9 @@ private final int CODE_SAFETREK = 10;
         });
 
         //String access_token = getIntent().getData().getQueryParameter("access_token");
+
         //Example upload
+        //Report newReport = new Report("Maryland", "YUN457", "Mirrors");
         //Report newReport = new Report("new state", "new license", "new claim");
         //uploadReport(newReport);
     }
@@ -74,8 +83,10 @@ private final int CODE_SAFETREK = 10;
             case CODE_NEW_REPORT: {
                 if (resultCode == RESULT_OK && null != data){
                  Report r = data.getParcelableExtra("report");
-                 Log.d("REPORT CHANGE" , r.getLicense());
+                 uploadReport(r);
+                 Log.d("NEW REPORT", r.getLicense() + " ---- " + r.getState() + " ---- " + r.getClaim() + " ---- " + r.getOption());
                 }
+                break;
             }
         }
     }
@@ -91,14 +102,11 @@ private final int CODE_SAFETREK = 10;
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println(dataSnapshot.getChildrenCount());
                 numberOfClaims = (int) dataSnapshot.getChildrenCount() + 1;
-                //Prompt the User License and store into report
-
                 mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                //Handle possible errors.
             }
         });
     }
@@ -108,6 +116,39 @@ private final int CODE_SAFETREK = 10;
     public void onBackPressed(){
         moveTaskToBack(true);
     }
+
+    public void getReports(final String licenseID, final String state)
+    {
+        final ArrayList<Report> reports = new ArrayList();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(int i = 1; i <= (int) dataSnapshot.getChildrenCount(); i++)
+                {
+                    String checkLicense = dataSnapshot.child(String.valueOf(i)).child("license").getValue().toString();
+                    String checkState = dataSnapshot.child(String.valueOf(i)).child("state").getValue().toString();
+
+                    if (checkLicense.equalsIgnoreCase(licenseID) && checkState.equalsIgnoreCase(state)) {
+                        String claim = dataSnapshot.child(String.valueOf(i)).child("claim").getValue().toString();
+                        String time = dataSnapshot.child(String.valueOf(i)).child("time").getValue().toString();
+                        String option = dataSnapshot.child(String.valueOf(i)).child("option").getValue().toString();
+                        Report newReport = new Report(checkState, checkLicense, claim, option, time);
+                        reports.add(newReport);
+                    }
+                }
+                //Put code here
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
 
 //    //Populate List
