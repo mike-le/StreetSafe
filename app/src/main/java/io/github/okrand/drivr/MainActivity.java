@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     numberOfClaims = (int) dataSnapshot.getChildrenCount() + 1;
                     mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
                 }
+                Toast.makeText(MainActivity.this, "Report saved", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -181,13 +182,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 myRepsListView.setAdapter(adapter);
-
-
-
-
-
-
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
