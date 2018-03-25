@@ -24,6 +24,7 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 private final int CODE_SAFETREK = 10;
+    private final int CODE_NEW_REPORT = 0;
     private DatabaseReference mDatabase;
     private static int numberOfClaims;
 
@@ -42,7 +43,7 @@ private final int CODE_SAFETREK = 10;
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("report", r);
                 intent.putExtras(bundle);
-                startActivityForResult(intent, 0);
+                startActivityForResult(intent, CODE_NEW_REPORT);
             }
         });
 
@@ -70,6 +71,12 @@ private final int CODE_SAFETREK = 10;
                 System.out.print(token);
                 break;
             }
+            case CODE_NEW_REPORT: {
+                if (resultCode == RESULT_OK && null != data){
+                 Report r = data.getParcelableExtra("report");
+                 Log.d("REPORT CHANGE" , r.getLicense());
+                }
+            }
         }
     }
 
@@ -95,6 +102,7 @@ private final int CODE_SAFETREK = 10;
             }
         });
     }
+
 
     @Override
     public void onBackPressed(){

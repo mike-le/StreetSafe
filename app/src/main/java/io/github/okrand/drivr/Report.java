@@ -65,6 +65,8 @@ public class Report implements Parcelable{
         return time;
     }
 
+    public void setLicense(String l) { license = l; }
+
     @Override
     public int describeContents() {
         return 0;
