@@ -23,7 +23,7 @@ import android.net.Uri;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
-private final int CODE_SAFETREK = 10;
+    private final int CODE_SAFETREK = 10;
     private final int CODE_NEW_REPORT = 0;
     private DatabaseReference mDatabase;
     private ArrayList<Report> reports;
@@ -41,7 +41,7 @@ private final int CODE_SAFETREK = 10;
             @Override
             public void onClick(View v) {
                 Report r = new Report();
-                Intent intent = new Intent();
+                Intent intent = new Intent(MainActivity.this, NewReportType.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("report", r);
                 intent.putExtras(bundle);
@@ -78,8 +78,10 @@ private final int CODE_SAFETREK = 10;
             case CODE_NEW_REPORT: {
                 if (resultCode == RESULT_OK && null != data){
                  Report r = data.getParcelableExtra("report");
-                 Log.d("REPORT CHANGE" , r.getLicense());
+                 uploadReport(r);
+                 Log.d("NEW REPORT", r.getLicense() + " ---- " + r.getState() + " ---- " + r.getClaim() + " ---- " + r.getOption());
                 }
+                break;
             }
         }
     }
