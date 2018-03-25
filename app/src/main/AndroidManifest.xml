@@ -42,6 +42,13 @@
         <activity android:name=".NewReportType">
 
         </activity>
+        <activity android:name=".DriverOptions">
+
+        </activity>
+        <activity android:name=".CarOptions">
+
+        </activity>
+
 
     </application>
 

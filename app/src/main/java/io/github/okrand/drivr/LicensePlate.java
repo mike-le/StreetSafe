@@ -1,6 +1,7 @@
 package io.github.okrand.drivr;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
@@ -72,14 +73,21 @@ public class LicensePlate extends AppCompatActivity{
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     EditText txtSpeechInput = (EditText) findViewById(R.id.edit_plate);
-                    String res = result.get(0).replaceAll("\\s+","");
+                    String res = result.get(0).replaceAll("\\s+","").toUpperCase();
                     txtSpeechInput.setText(res);
+
+                    //Get Report
+                    Bundle bundle = getIntent().getExtras();
+                    final Report r = bundle.getParcelable("report");
+                    r.setLicense(res); //set license plate of report
+
                     Handler mHandler = new Handler();
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             Intent intent = new Intent(LicensePlate.this, LicenseState.class);
-                            startActivity(intent);
+                            intent.putExtra("report", r);
+                            startActivityForResult(intent, CODE_STATE_RETURN);
                         }
                     }, TIME_OUT);
                 }
@@ -87,7 +95,11 @@ public class LicensePlate extends AppCompatActivity{
             }
             case CODE_STATE_RETURN: { //Return from state
                 if (resultCode == RESULT_OK && null != data) {
-
+                    Report r = data.getParcelableExtra("report");
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("report", r);
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
                 }
                 break;
             }

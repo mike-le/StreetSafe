@@ -11,23 +11,26 @@ public class Report implements Parcelable{
     private String license;
     private String state;
     private String claim;
+    private String option;
     private String time;
 
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-    public Report(String state, String license, String claim) {
+    public Report(String state, String license, String claim, String option) {
         this.state = state;
         this.license = license;
         this.claim = claim;
+        this.option = option;
         Date date = new Date();
-        time = sdf.format(date);
+        this.time = sdf.format(date);
     }
 
     public Report() {
         this.state = "";
         this.license = "";
         this.claim = "";
-        time = "";
+        this.option = "";
+        this.time = "";
     }
 
     protected Report(Parcel in) {
@@ -35,6 +38,7 @@ public class Report implements Parcelable{
         state = in.readString();
         claim = in.readString();
         time = in.readString();
+        option = in.readString();
     }
 
     public static final Creator<Report> CREATOR = new Creator<Report>() {
@@ -61,11 +65,21 @@ public class Report implements Parcelable{
         return claim;
     }
 
+    public String getOption() {
+        return option;
+    }
+
     public String getTime() {
         return time;
     }
 
+    public void setTime(String newTime) { time = newTime; }
+    public void setOption(String newOption) { option = newOption; }
+    public void setState(String newState) { state = newState; }
+    public void setClaim(String newClaim) { claim = newClaim; }
     public void setLicense(String l) { license = l; }
+
+
 
     @Override
     public int describeContents() {
@@ -77,6 +91,7 @@ public class Report implements Parcelable{
         dest.writeString(license);
         dest.writeString(state);
         dest.writeString(claim);
+        dest.writeString(option);
         dest.writeString(time);
     }
 }
