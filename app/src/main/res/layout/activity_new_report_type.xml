@@ -1,7 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
 
-</LinearLayout>
+    <Button
+        android:id="@+id/emergency"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Emergency"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_error_white_24dp"
+        android:backgroundTint="@android:color/holo_red_dark"/>
+
+    <Button
+        android:id="@+id/bad_driver"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Bad Driver"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_person_white_24dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        />
+
+    <Button
+        android:id="@+id/bad_car"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Bad Car"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_directions_car_white_24dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        />
+
+</LinearLayout
+    >
