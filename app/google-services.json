@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "570405099366",
+    "firebase_url": "https://drivr-1ec10.firebaseio.com",
+    "project_id": "drivr-1ec10",
+    "storage_bucket": "drivr-1ec10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570405099366:android:7d2d5e981f6a8307",
+        "android_client_info": {
+          "package_name": "io.github.okrand.drivr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570405099366-psh07dvg20tf3m8offcapi1m5dv70f73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeZFSmigZZ37K2Lm6PabAE3JJCGBXepJg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
