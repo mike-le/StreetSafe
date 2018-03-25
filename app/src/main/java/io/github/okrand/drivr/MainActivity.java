@@ -60,14 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getReports("P84XJ", "New Jersey");
-
-        //String access_token = getIntent().getData().getQueryParameter("access_token");
-
-        //Example upload
-        //Report newReport = new Report("Maryland", "YUN457", "Mirrors");
-        //Report newReport = new Report("new state", "new license", "new claim");
-        //uploadReport(newReport);
+        getReports("M62AYJ", "New Jersey");
     }
 
     void authenticate() {
@@ -99,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //If User calls app and successfully provides information to upload, use this function
     public void uploadReport(final Report newReport)
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -119,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
                 }
                 Toast.makeText(MainActivity.this, "Report saved", Toast.LENGTH_SHORT).show();
+                getReports("M62AYJ", "New Jersey");
             }
 
             @Override
