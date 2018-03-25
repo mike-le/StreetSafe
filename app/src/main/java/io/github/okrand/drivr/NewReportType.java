@@ -28,6 +28,7 @@ public class NewReportType extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NewReportType.this, Emergency.class);
+                startActivity(intent);
             }
         });
 

@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static int numberOfClaims;
+    private final String lPlate = "M62AYJ";
+    private final String lState = "New Jersey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getReports("M62AYJ", "New Jersey");
+        getReports(lPlate, lState);
     }
 
     void authenticate() {
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null != data){
                  Report r = data.getParcelableExtra("report");
                  uploadReport(r);
-                 Log.d("NEW REPORT", r.getLicense() + " ---- " + r.getState() + " ---- " + r.getClaim() + " ---- " + r.getOption());
+                 Log.d("NEW REPORT", r.getLicense() + " ---- " + r.getState() + " ---- " + r.getClaim() + ": " + r.getOption());
                 }
                 break;
             }
@@ -120,6 +123,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getReports(lPlate,lState);
+    }
 
     @Override
     public void onBackPressed(){

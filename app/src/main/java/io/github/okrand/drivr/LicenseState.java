@@ -75,7 +75,6 @@ public class LicenseState extends AppCompatActivity{
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: { // Result of speech to text
                 if (resultCode == RESULT_OK && null != data) {
-
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     EditText txtSpeechInput = (EditText) findViewById(R.id.edit_state);
