@@ -3,7 +3,9 @@ package io.github.okrand.drivr;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 private final int CODE_SAFETREK = 10;
+    private final int CODE_NEW_REPORT = 0;
     private DatabaseReference mDatabase;
     private ArrayList<Report> reports;
     private static int numberOfClaims;
@@ -33,10 +36,24 @@ private final int CODE_SAFETREK = 10;
         setContentView(R.layout.activity_main);
         //authenticate();
 
+        final Button newReport = findViewById(R.id.button_new_report);
+        newReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Report r = new Report();
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("report", r);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, CODE_NEW_REPORT);
+            }
+        });
+
         //String access_token = getIntent().getData().getQueryParameter("access_token");
 
         //Example upload
         //Report newReport = new Report("Maryland", "YUN457", "Mirrors");
+        //Report newReport = new Report("new state", "new license", "new claim");
         //uploadReport(newReport);
     }
 
@@ -57,6 +74,12 @@ private final int CODE_SAFETREK = 10;
                 String token = data.getData().getQueryParameter("access_token");
                 System.out.print(token);
                 break;
+            }
+            case CODE_NEW_REPORT: {
+                if (resultCode == RESULT_OK && null != data){
+                 Report r = data.getParcelableExtra("report");
+                 Log.d("REPORT CHANGE" , r.getLicense());
+                }
             }
         }
     }
@@ -83,6 +106,7 @@ private final int CODE_SAFETREK = 10;
             }
         });
     }
+
 
     @Override
     public void onBackPressed(){
@@ -111,6 +135,7 @@ private final int CODE_SAFETREK = 10;
                         reports.add(newReport);
                     }
                 }
+                //Put code here
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
