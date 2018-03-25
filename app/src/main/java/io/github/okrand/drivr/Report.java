@@ -16,18 +16,10 @@ public class Report implements Parcelable{
 
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-<<<<<<< HEAD
-=======
-
->>>>>>> bfe5c808674c4b9a07fd9b82398c8bd331e88150
     public Report(String state, String license, String claim, String option, String time) {
         this.state = state;
         this.license = license;
         this.claim = claim;
-<<<<<<< HEAD
-        this.option = option;
-=======
->>>>>>> bfe5c808674c4b9a07fd9b82398c8bd331e88150
         this.time = time;
         this.option = option;
     }

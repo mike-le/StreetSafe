@@ -24,20 +24,26 @@ public class LicenseState extends AppCompatActivity{
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private final int CODE_OPTIONS_RETURN = 200;
-    private static int TIME_OUT = 2000;
+    private static int TIME_OUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_state);
 
-        EditText txtLicensePlate = (EditText) findViewById(R.id.edit_state);
-        txtLicensePlate.setOnClickListener(new View.OnClickListener() {
+        final EditText txtLicenseState = (EditText) findViewById(R.id.edit_state);
+        txtLicenseState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
             }
         });
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                txtLicenseState.performClick();}
+        }, TIME_OUT);
     }
     /**
      * Showing google speech input dialog

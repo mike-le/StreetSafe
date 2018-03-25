@@ -23,20 +23,26 @@ public class LicensePlate extends AppCompatActivity{
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private final int CODE_STATE_RETURN = 200;
-    private static int TIME_OUT = 2000;
+    private static int TIME_OUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plate);
 
-        EditText txtLicensePlate = (EditText) findViewById(R.id.edit_plate);
+        final EditText txtLicensePlate = (EditText) findViewById(R.id.edit_plate);
         txtLicensePlate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 promptSpeechInput();
             }
         });
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+            txtLicensePlate.performClick();}
+        }, TIME_OUT);
     }
 
     /**
