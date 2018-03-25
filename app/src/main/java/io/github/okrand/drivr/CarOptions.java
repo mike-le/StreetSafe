@@ -42,5 +42,16 @@ public class CarOptions extends AppCompatActivity {
             }
         });
 
+        smoke.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r.setOption("Smoke");
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("report", r);
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
+            }
+        });
+
     }
 }

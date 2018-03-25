@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private final int CODE_NEW_REPORT = 0;
     private DatabaseReference mDatabase;
     private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private ArrayList<Report> reports;
     private static int numberOfClaims;
 
     @Override
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //authenticate();
+
         final Button newReport = findViewById(R.id.button_new_report);
         newReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //String access_token = getIntent().getData().getQueryParameter("access_token");
+
         //Example upload
+        //Report newReport = new Report("Maryland", "YUN457", "Mirrors");
         //Report newReport = new Report("new state", "new license", "new claim");
         //uploadReport(newReport);
     }
@@ -116,6 +120,38 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         moveTaskToBack(true);
     }
+
+    public void getReports(final String licenseID, final String state)
+    {
+        final ArrayList<Report> reports = new ArrayList();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Reports");
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(int i = 1; i <= (int) dataSnapshot.getChildrenCount(); i++)
+                {
+                    String checkLicense = dataSnapshot.child(String.valueOf(i)).child("license").getValue().toString();
+                    String checkState = dataSnapshot.child(String.valueOf(i)).child("state").getValue().toString();
+
+                    if (checkLicense.equalsIgnoreCase(licenseID) && checkState.equalsIgnoreCase(state)) {
+                        String claim = dataSnapshot.child(String.valueOf(i)).child("claim").getValue().toString();
+                        String time = dataSnapshot.child(String.valueOf(i)).child("time").getValue().toString();
+                        Report newReport = new Report(checkState, checkLicense, claim, time);
+                        reports.add(newReport);
+                    }
+                }
+                //Put code here
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
 
 //    //Populate List
