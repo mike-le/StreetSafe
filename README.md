@@ -6,9 +6,9 @@ StreetSafe is an Android application that is designed to allow drivers to commun
 
 The goal of the application was to provide a platform for unaware drivers to learn about their vehicle malfunctions and poor driving technique quicker. Our team believes that self-awareness is the first step to correcting these issues, and with StreetSafe we hope to raise self-awareness for all drivers.
 
-Technologies:
-Java 7
-Gradle
-Cloud Text-to-Speech API
-Noonlight API
-Android Studio
+Technologies:    
+Java 7     
+Gradle    
+Cloud Text-to-Speech API   
+Noonlight API    
+Android Studio    
