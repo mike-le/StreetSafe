@@ -102,12 +102,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getChildrenCount() == 0)
                 {
-                    mDatabase.child("Reports").child("1").setValue(newReport);
+                    mDatabase.child("Reports")
+                        .child("1")
+                        .setValue(newReport);
                 }
                 else
                 {
                     numberOfClaims = (int) dataSnapshot.getChildrenCount() + 1;
-                    mDatabase.child("Reports").child(String.valueOf(numberOfClaims)).setValue(newReport);
+                    mDatabase.child("Reports")
+                        .child(String.valueOf(numberOfClaims))
+                        .setValue(newReport);
                 }
                 Toast.makeText(MainActivity.this, "Report saved", Toast.LENGTH_SHORT).show();
             }

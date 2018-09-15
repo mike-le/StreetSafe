@@ -16,10 +16,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
-/**
- * Created by Krando67 on 3/24/18.
- */
-
 public class LicenseState extends AppCompatActivity{
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -45,6 +41,7 @@ public class LicenseState extends AppCompatActivity{
                 txtLicenseState.performClick();}
         }, TIME_OUT);
     }
+    
     /**
      * Showing google speech input dialog
      * */

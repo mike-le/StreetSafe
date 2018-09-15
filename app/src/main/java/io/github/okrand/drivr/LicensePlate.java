@@ -15,10 +15,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 
-/**
- * Created by Krando67 on 3/24/18.
- */
-
 public class LicensePlate extends AppCompatActivity{
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
