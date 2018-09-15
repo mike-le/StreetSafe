@@ -10,5 +10,4 @@ Technologies:
 Java 7     
 Gradle    
 Cloud Text-to-Speech API   
-Noonlight API    
-Android Studio    
+Noonlight API     
